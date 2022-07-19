@@ -1,5 +1,29 @@
 {
   "dependencies": {
-    "express": "^4.18.1"
-  }
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "server": "github:souravwithstars/server",
+    "supertest": "^6.2.4"
+  },
+  "name": "todo-souravwithstars",
+  "description": "--- A simple **To-do** list built using HTML, CSS and JavaScript helps multiple users maintain their To-dos.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/step-8/todo-souravwithstars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/step-8/todo-souravwithstars/issues"
+  },
+  "homepage": "https://github.com/step-8/todo-souravwithstars#readme"
 }
