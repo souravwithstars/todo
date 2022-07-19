@@ -1,0 +1,66 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+}
+
+body {
+  background-image: linear-gradient(to bottom right, #18978F, #A0D995)
+}
+
+#page-container {
+  margin: 160px auto;
+  padding: 10px;
+  width: 420px;
+  height: 480px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  background-color: rgba(230, 230, 230, 0.6);
+  border-radius: 10px;
+}
+
+#emoji-container {
+  height: 35%;
+  width: 35%;
+  border-radius: 50%;
+  background-color: rgba(220, 220, 220, 0.9);
+}
+
+#emoji-container img {
+  padding: 5px;
+}
+
+form {
+  height: 60%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+}
+
+#user-input {
+  height: 100px;
+}
+
+#username-container,
+#password-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+input {
+  font-size: 26px;
+  font-family: serif;
+}
+
+#clickable-options div {
+  font-size: 22px;
+  text-align: center;
+  margin: 5px 0;
+}
+
+#button {
+  width: 300px;
+  background-color: #18978F;
+  color: white;
+}
