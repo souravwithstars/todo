@@ -52,6 +52,10 @@ header {
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+}
+
 footer {
   margin: 0px 20px;
   padding: 20px;

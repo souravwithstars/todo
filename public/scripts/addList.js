@@ -22,7 +22,7 @@ const tagWithId = (tag, id, value) => {
   return `<${tag} id="${id}">${value}</${tag}>`;
 };
 
-const tagWithClass = (tag, classname, value) => {
+const tagWithClassAndId = (tag, classname, id, value) => {
   return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
@@ -30,23 +30,25 @@ const createTag = (tag, value) => {
   return `<${tag}>${value}</${tag}>`;
 };
 
-const createList = (title, time) => {
+const createLink = (title, id, time) => {
   const titleSpan = createTag('span', title);
   const timeText = `( Last modified : ${time} )`;
   const dateSpan = tagWithId('span', 'date', timeText);
-  const innerText = titleSpan + dateSpan;
 
-  const list = document.createElement('li');
-  list.className = 'list';
-  list.innerHTML = innerText;
-  return list;
+  const list = tagWithClassAndId('li', 'list', id, titleSpan + dateSpan);
+
+  const link = document.createElement('a');
+  link.href = 'view/' + id;
+  link.innerHTML = list;
+
+  return link;
 };
 
-const showItem = (title, time) => {
+const showItem = (title, id, time) => {
   const ul = document.querySelector('ul');
-  const list = createList(title, time);
+  const link = createLink(title, id, time);
 
-  ul.prepend(list);
+  ul.prepend(link);
   return;
 };
 
@@ -54,8 +56,8 @@ const sendRequest = xhrRequest => {
   const { method, pathname, body } = xhrRequest;
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
-    const { title, time } = JSON.parse(xhr.response);
-    showItem(title, time);
+    const { title, id, time } = JSON.parse(xhr.response);
+    showItem(title, id, time);
     return;
   };
   xhr.open(method, pathname);
@@ -65,8 +67,8 @@ const sendRequest = xhrRequest => {
   return;
 };
 
-const addItem = () => {
-  const xhrRequest = { method: 'post', pathname: '/add-item' };
+const addList = () => {
+  const xhrRequest = { method: 'post', pathname: '/add-list' };
   const form = document.getElementById('new-list');
   const formData = new FormData(form);
   const parsedForm = new URLSearchParams(formData).toString();

@@ -1,0 +1,49 @@
+<html>
+
+  <head>
+    <title>View</title>
+  </head>
+
+  <body>
+    <main id="page-container">
+      <header>
+        <div id="heading">
+          <span><img src="../resources/overview.png"></span>
+          <span>__TITLE__ :</span>
+        </div>
+        <div id="profile">
+          <span><img src="../resources/small-user.png"></span>
+          <span>__USERNAME__</span>
+        </div>
+      </header>
+      <div id="lists-container">
+        __ITEMS__
+      </div>
+    </main>
+    <footer>
+      <div id="add">
+        <section id="back"><span>Back</span></section>
+        <section id="edit">
+          <div>
+            <span><img src="../resources/add.png" onclick="openPopup()"></span>
+            <span>Add new item</span>
+          </div>
+          <div>
+            <span>Delete this List</span>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <div id="popup">
+      <form id="new-item">
+        <div>
+          <input type="text" name="name" placeholder="new item" id="name">
+        </div>
+        <div>
+          <input type="button" value="Add" id="add" onclick="addItem()">
+        </div>
+      </form>
+    </div>
+  </body>
+
+</html>

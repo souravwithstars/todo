@@ -3,7 +3,7 @@
   <head>
     <title>Home</title>
     <link rel="stylesheet" href="../css/home-page.css">
-    <script src="../scripts/addItem.js"></script>
+    <script src="../scripts/addList.js"></script>
   </head>
 
   <body>
@@ -39,7 +39,7 @@
           <input type="text" name="title" placeholder="title of new list" id="title">
         </div>
         <div>
-          <input type="button" value="Create" id="add" onclick="addItem()">
+          <input type="button" value="Create" id="add" onclick="addList()">
         </div>
       </form>
     </div>

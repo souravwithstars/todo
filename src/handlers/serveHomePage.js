@@ -4,8 +4,8 @@ const tagWithId = (tag, id, value) => {
   return `<${tag} id="${id}">${value}</${tag}>`;
 };
 
-const tagWithClass = (tag, classname, value) => {
-  return `<${tag} class="${classname}">${value}</${tag}>`;
+const tagWithClassAndId = (tag, classname, id, value) => {
+  return `<${tag} class="${classname}" id="${id}">${value}</${tag}>`;
 };
 
 const createTag = (tag, value) => {
@@ -17,16 +17,22 @@ const getFilename = (users, name) => {
   return filename;
 };
 
+const createLink = (newList, hrefFile) => {
+  return `<a href="${hrefFile}">${newList}</a>`;
+};
+
 const createLists = todos => {
-  let list = '';
-  todos.forEach(({ title, time }) => {
+  let lists = '';
+  todos.forEach(({ title, time, id }) => {
+    const hrefFile = 'view/' + id;
     const titleSpan = createTag('span', title);
     const timeText = `( Last modified : ${time} )`;
     const dateSpan = tagWithId('span', 'date', timeText);
 
-    list += tagWithClass('li', 'list', titleSpan + dateSpan);
+    const newList = tagWithClassAndId('li', 'list', id, titleSpan + dateSpan);
+    lists += createLink(newList, hrefFile);
   });
-  const ulTag = createTag('ul', list);
+  const ulTag = createTag('ul', lists);
   return ulTag;
 };
 

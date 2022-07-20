@@ -1,21 +1,22 @@
 const fs = require('fs');
 
-const createList = title => {
+const createList = (title, id) => {
   const items = [];
   const time = new Date().toLocaleString();
-  return { title, items, time };
+  return { title, id, items, time };
 };
 
-const addItemHandler = (users, dir) => (req, res) => {
+const addListHandler = (users, dir) => (req, res) => {
   const { databaseFile } = req.session;
   const details = JSON.parse(fs.readFileSync(databaseFile));
-  const { todos } = details;
+  const { todos, nextId } = details;
   const { title } = req.body;
-  const newList = createList(title);
+  const newList = createList(title, nextId);
+  details.nextId = +nextId + 1;
   todos.unshift(newList);
   fs.writeFileSync(databaseFile, JSON.stringify(details), 'utf-8');
   res.json(newList);
   return;
 };
 
-module.exports = { addItemHandler };
+module.exports = { addListHandler };
