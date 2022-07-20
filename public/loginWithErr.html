@@ -1,14 +1,14 @@
 <html>
 
   <head>
-    <title>Sign-Up</title>
+    <title>Log-In</title>
     <link rel="stylesheet" href="css/authentication.css">
   </head>
 
   <body>
     <main id="page-container">
       <figure id="emoji-container"><img src="./resources/big-user.png"></figure>
-      <form action="/register-user" method="post">
+      <form action="/logged-user" method="post">
         <section id="user-input">
           <div id="username-container">
             <span><img src="./resources/username.png"></span>
@@ -20,11 +20,9 @@
           </div>
         </section>
         <section id="clickable-options">
-          <div id="signup">
-            <input type="submit" value="SIGN-UP" id="button">
-          </div>
-          <div>
-            <p>Already have an account? <a href="./login.html">Log-In</a></p>
+          <p id="error">Incorrect Username or Password!!!</p>
+          <div id="login">
+            <input type="button" value="LOGIN" id="button">
           </div>
         </section>
       </form>

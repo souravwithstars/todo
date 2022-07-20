@@ -1,10 +1,16 @@
 const { todo } = require('./src/todo.js');
 
-const startServer = port => {
-  const app = todo();
+const startServer = (port, config) => {
+  const app = todo(config);
   app.listen(port, () => console.log(`Listening on the port ${port}`));
 };
 
 const PORT = 5678;
+const config = {
+  dir: 'src/database/',
+  path: 'public',
+  userDetails: 'userDetails.json',
+  homeTemplate: '/resources/homeTemplate.html'
+};
 
-startServer(PORT);
+startServer(PORT, config);

@@ -53,6 +53,13 @@ input {
   font-family: serif;
 }
 
+#error {
+  padding-bottom: 5px;
+  visibility: visible;
+  color: #FF0000;
+  text-align: center;
+}
+
 #clickable-options div {
   font-size: 22px;
   text-align: center;

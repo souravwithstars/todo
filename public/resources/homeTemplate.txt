@@ -1,0 +1,48 @@
+<html>
+
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="../css/home-page.css">
+    <script src="../scripts/addItem.js"></script>
+  </head>
+
+  <body>
+    <main id="page-container">
+      <header>
+        <div id="heading">
+          <span><img src="resources/overview.png"></span>
+          <span>My To-Do Lists :</span>
+        </div>
+        <div id="profile">
+          <span><img src="resources/small-user.png"></span>
+          <span>__USERNAME__</span>
+        </div>
+      </header>
+      <div id="lists-container">
+        __LISTS__
+      </div>
+    </main>
+    <footer>
+      <div id="create">
+        <span>Create a New List - </span>
+        <span><img src="resources/create.png" onclick="openPopup()"></span>
+      </div>
+      <div id="log-out">
+        <form action="/login" method="post">
+          <input type="submit" value="Log out" id="button">
+        </form>
+      </div>
+    </footer>
+    <div id="popup">
+      <form id="new-list">
+        <div>
+          <input type="text" name="title" placeholder="title of new list" id="title">
+        </div>
+        <div>
+          <input type="button" value="Create" id="add" onclick="addItem()">
+        </div>
+      </form>
+    </div>
+  </body>
+
+</html>
