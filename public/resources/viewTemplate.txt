@@ -2,6 +2,7 @@
 
   <head>
     <title>View</title>
+    <script src="../scripts/addItem.js"></script>
   </head>
 
   <body>
@@ -9,7 +10,7 @@
       <header>
         <div id="heading">
           <span><img src="../resources/overview.png"></span>
-          <span>__TITLE__ :</span>
+          <span id="title">__TITLE__ :</span>
         </div>
         <div id="profile">
           <span><img src="../resources/small-user.png"></span>

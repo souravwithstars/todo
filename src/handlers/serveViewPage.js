@@ -14,11 +14,11 @@ const createTag = (tag, value) => {
 };
 
 const createCheckBox = (status, id) => {
-  return `<input type="checkbox" value="${status}" id="${id}">`;
+  return `<input type="checkbox" value="${status}" id="${id}" onclick="markItem()">`;
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span><img src="../resources/delete.png" onclick="deleteItem()"></span>`;
+  return `<span><img src="../resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {
@@ -31,12 +31,14 @@ const replaceTemplates = (template, username, title, listsHtml) => {
 const createLists = items => {
   let lists = '';
   items.forEach(({ item, id, done, deleted }) => {
-    const checkBox = createCheckBox(done, id);
-    const titleSpan = createTag('span', item);
-    const deleteSpan = createDeleteEmoji(id);
+    if (!deleted) {
+      const checkBox = createCheckBox(done, id);
+      const titleSpan = createTag('span', item);
+      const deleteSpan = createDeleteEmoji(id);
 
-    const listInner = checkBox + titleSpan + deleteSpan;
-    lists += tagWithClassAndId('li', 'list', id, listInner);
+      const listInner = checkBox + titleSpan + deleteSpan;
+      lists += tagWithClassAndId('li', 'list', id, listInner);
+    }
   });
   const ulTag = createTag('ul', lists);
   return ulTag;
@@ -60,6 +62,7 @@ const viewPageRouter = (users, viewPage) => (req, res) => {
     res.redirect(302, '/login.html');
     return;
   }
+  req.session.id = id;
   const { todos } = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));
   const todo = getTodo(todos, +id);
   serveViewPage(req, res, username, viewPage, todo);

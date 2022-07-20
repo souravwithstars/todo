@@ -8,6 +8,7 @@ const { validateUser } = require('./handlers/loginHandler.js');
 const { homePageRouter } = require('./handlers/serveHomePage.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
+const { addItemHandler } = require('./handlers/addItemHandler.js');
 
 const keys = JSON.parse(fs.readFileSync('./src/secretKey.json', 'utf-8'));
 
@@ -27,9 +28,11 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   app.post('/logged-user', validateUser(users));
 
   app.get('/home-page', homePageRouter(users, dir, homePage));
-  app.post('/add-list', addListHandler(dir, filename));
+  app.post('/add-list', addListHandler);
 
   app.get('/view/:id', viewPageRouter(users, viewPage));
+
+  app.post('/add-item', addItemHandler);
 
   app.use(express.static('public'));
   app.use(notFoundHandler);
