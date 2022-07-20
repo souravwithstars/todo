@@ -25,7 +25,7 @@ const todo = ({ dir, path, userDetails, homeTemplate }) => {
   app.post('/logged-user', validateUser(users));
 
   app.get('/home-page', homePageRouter(users, dir, homePage));
-  app.post('/add-item', addItemHandler(users, filename));
+  app.post('/add-item', addItemHandler(dir, filename));
 
   app.use(express.static('public'));
   app.use(notFoundHandler);

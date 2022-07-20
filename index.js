@@ -10,7 +10,7 @@ const config = {
   dir: 'src/database/',
   path: 'public',
   userDetails: 'userDetails.json',
-  homeTemplate: '/resources/homeTemplate.html'
+  homeTemplate: '/resources/homeTemplate.txt'
 };
 
 startServer(PORT, config);

@@ -21,7 +21,7 @@ const createLists = todos => {
   let list = '';
   todos.forEach(({ title, time }) => {
     const titleSpan = createTag('span', title);
-    const timeText = `( Last modified : ${time} )`
+    const timeText = `( Last modified : ${time} )`;
     const dateSpan = tagWithId('span', 'date', timeText);
 
     list += tagWithClass('li', 'list', titleSpan + dateSpan);
@@ -48,6 +48,7 @@ const homePageRouter = (users, dir, template) => (req, res) => {
     return;
   }
   const databaseFile = getFilename(users, username);
+  req.session.databaseFile = dir + databaseFile;
   const { todos } = JSON.parse(fs.readFileSync(dir + databaseFile, 'utf-8'));
   serveHomePage(req, res, username, template, todos);
   return;
