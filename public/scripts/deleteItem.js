@@ -1,16 +1,15 @@
-const changeMark = (id, done) => {
+const deleteItemFromPage = id => {
   const li = document.getElementById(id);
-  const input = li.getElementsByTagName('input')[0];
-  input.value = done;
+  li.remove();
   return;
 };
 
-const sendMarkRequest = xhrRequest => {
+const sendDeleteRequest = xhrRequest => {
   const { method, pathname } = xhrRequest;
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
-    const { id, done } = JSON.parse(xhr.response);
-    changeMark(id, done);
+    const { id } = JSON.parse(xhr.response);
+    deleteItemFromPage(id);
     return;
   };
   xhr.open(method, pathname);
@@ -18,11 +17,11 @@ const sendMarkRequest = xhrRequest => {
   return;
 };
 
-const markItem = event => {
+const deleteItem = event => {
   const itemId = event.srcElement.id;
   const titleElement = document.getElementById('title');
   const title = titleElement.innerText.slice(0, -2);
-  const xhrRequest = { method: 'post', pathname: `/list/${title}/${itemId}/mark` };
-  sendMarkRequest(xhrRequest);
+  const xhrRequest = { method: 'post', pathname: `/list/${title}/${itemId}/delete` };
+  sendDeleteRequest(xhrRequest);
   return;
 };

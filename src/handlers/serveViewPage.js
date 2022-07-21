@@ -19,7 +19,7 @@ const createCheckBox = (status, id) => {
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
+  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem(event)"></span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {

@@ -38,7 +38,7 @@ const createLink = (title, id, time) => {
   const list = tagWithClassAndId('li', 'list', id, titleSpan + dateSpan);
 
   const link = document.createElement('a');
-  link.href = 'view/' + id;
+  link.href = `list/${id}/view`;
   link.innerHTML = list;
 
   return link;

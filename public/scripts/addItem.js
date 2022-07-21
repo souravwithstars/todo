@@ -23,11 +23,11 @@ const createTag = (tag, value) => {
 };
 
 const createCheckBox = (id) => {
-  return `<input type="checkbox" value="false" id="${id}" onclick="markItem()">`;
+  return `<input type="checkbox" value="false" id="${id}" onclick="markItem(event)">`;
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
+  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem(event)"></span>`;
 };
 
 const createList = (item, id) => {

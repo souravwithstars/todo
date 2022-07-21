@@ -10,6 +10,7 @@ const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
 const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
+const { deleteItemHandler } = require('./handlers/deleteItemHandler.js');
 
 const keys = JSON.parse(fs.readFileSync('./src/secretKeys.json', 'utf-8'));
 
@@ -20,6 +21,8 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   const viewPage = fs.readFileSync(path + viewTemplate, 'utf-8');
 
   const app = express();
+  const itemRouter = express.Router();
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(logRequest('tiny'));
@@ -34,7 +37,10 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   app.get('/list/:listId/view', viewPageRouter(users, viewPage));
 
   app.post('/add-item', addItemHandler);
-  app.post('/list/:title/:itemId/mark', markItemHandler);
+
+  app.use('/list', itemRouter);
+  itemRouter.post('/:title/:itemId/mark', markItemHandler);
+  itemRouter.post('/:title/:itemId/delete', deleteItemHandler);
 
   app.use(express.static('public'));
   app.use(notFoundHandler);

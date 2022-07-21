@@ -5,14 +5,14 @@ const getTodo = ({ todos }, reqId) => {
 };
 
 const createList = (item, id) => {
-  return { item, id, done: false, delete: false };
+  return { item, id, done: false, deleted: false };
 };
 
 const addItemHandler = (req, res) => {
-  const { databaseFile, id } = req.session;
+  const { databaseFile, listId } = req.session;
   const details = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));
 
-  const todo = getTodo(details, +id);
+  const todo = getTodo(details, +listId);
   const { items, nextItemId } = todo;
   const { name } = req.body;
 

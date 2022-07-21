@@ -4,6 +4,7 @@
     <title>View</title>
     <script src="/scripts/addItem.js"></script>
     <script src="/scripts/markItem.js"></script>
+    <script src="/scripts/deleteItem.js"></script>
   </head>
 
   <body>
