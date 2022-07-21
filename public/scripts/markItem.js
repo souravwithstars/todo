@@ -22,7 +22,7 @@ const markItem = event => {
   const itemId = event.srcElement.id;
   const titleElement = document.getElementById('title');
   const title = titleElement.innerText.slice(0, -2);
-  const xhrRequest = { method: 'post', pathname: `/list/${title}/${itemId}/mark` };
+  const xhrRequest = { method: 'post', pathname: `/item/${title}/${itemId}/mark` };
   sendMarkRequest(xhrRequest);
   return;
 };

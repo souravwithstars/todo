@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const { notFoundHandler } = require('server');
 const { registerUser } = require('./handlers/signupHandler.js');
 const { validateUser } = require('./handlers/loginHandler.js');
+const { logoutHandler } = require('./handlers/logoutHandler.js');
 const { homePageRouter } = require('./handlers/serveHomePage.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
@@ -22,6 +23,7 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   const viewPage = fs.readFileSync(path + viewTemplate, 'utf-8');
 
   const app = express();
+  const listRouter = express.Router();
   const itemRouter = express.Router();
 
   app.use(express.json());
@@ -31,16 +33,18 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
 
   app.post('/register-user', registerUser(users, dir, filename));
   app.post('/logged-user', validateUser(users));
+  app.get('/logout', logoutHandler);
 
   app.get('/home-page', homePageRouter(users, dir, homePage));
   app.post('/add-list', addListHandler);
 
-  app.get('/list/:listId/view', viewPageRouter(users, viewPage));
-  app.post('/list/:listId/delete', deleteListHandler);
+  app.use('/list', listRouter);
+  listRouter.get('/:listId/view', viewPageRouter(users, viewPage));
+  listRouter.post('/:listId/delete', deleteListHandler);
 
   app.post('/add-item', addItemHandler);
 
-  app.use('/list', itemRouter);
+  app.use('/item', itemRouter);
   itemRouter.post('/:title/:itemId/mark', markItemHandler);
   itemRouter.post('/:title/:itemId/delete', deleteItemHandler);
 

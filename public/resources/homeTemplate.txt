@@ -29,7 +29,7 @@
         <span><img src="/resources/create.png" onclick="openPopup()"></span>
       </div>
       <div id="log-out">
-        <form action="/login" method="post">
+        <form action="/logout" method="get">
           <input type="submit" value="Log out" id="button">
         </form>
       </div>
