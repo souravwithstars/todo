@@ -23,36 +23,45 @@ const tagWithId = (tag, id, value) => {
 };
 
 const tagWithClassAndId = (tag, classname, id, value) => {
-  return `<${tag} class="${classname}">${value}</${tag}>`;
+  return `<${tag} class="${classname}" id="${id}">${value}</${tag}>`;
 };
 
 const createTag = (tag, value) => {
   return `<${tag}>${value}</${tag}>`;
 };
 
-const createLink = (title, id, time) => {
+const createLink = (value, hrefFile) => {
+  return `<a href="${hrefFile}">${value}</a>`;
+};
+
+const createDeleteEmoji = (id) => {
+  return `<span id="delete"><img src="/resources/delete.png" id="${id}" onclick="deleteList(event)"></span>`;
+};
+
+const createList = (title, id, time) => {
+  const hrefFile = `list/${id}/view`;
   const titleSpan = createTag('span', title);
   const timeText = `( Last modified : ${time} )`;
   const dateSpan = tagWithId('span', 'date', timeText);
+  const link = createLink(titleSpan + dateSpan, hrefFile);
+  const deleteDiv = createDeleteEmoji(id);
+  const list = document.createElement('li');
 
-  const list = tagWithClassAndId('li', 'list', id, titleSpan + dateSpan);
-
-  const link = document.createElement('a');
-  link.href = `list/${id}/view`;
-  link.innerHTML = list;
-
-  return link;
+  list.className = 'list';
+  list.id = id;
+  list.innerHTML = link + deleteDiv;
+  return list;
 };
 
 const showItem = (title, id, time) => {
   const ul = document.querySelector('ul');
-  const link = createLink(title, id, time);
+  const list = createList(title, id, time);
 
-  ul.prepend(link);
+  ul.prepend(list);
   return;
 };
 
-const sendRequest = xhrRequest => {
+const sendAddRequest = xhrRequest => {
   const { method, pathname, body } = xhrRequest;
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
@@ -73,7 +82,7 @@ const addList = () => {
   const formData = new FormData(form);
   const parsedForm = new URLSearchParams(formData).toString();
   xhrRequest.body = parsedForm;
-  sendRequest(xhrRequest);
+  sendAddRequest(xhrRequest);
   form.reset();
   return;
 };

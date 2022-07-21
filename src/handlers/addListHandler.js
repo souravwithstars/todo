@@ -4,7 +4,8 @@ const createList = (title, id) => {
   const items = [];
   const time = new Date().toLocaleString();
   const nextItemId = 1;
-  return { title, id, items, nextItemId, time };
+  const deleted = false;
+  return { title, id, items, nextItemId, time, deleted };
 };
 
 const addListHandler = (req, res) => {

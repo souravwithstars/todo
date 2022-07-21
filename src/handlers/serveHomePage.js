@@ -17,20 +17,28 @@ const getFilename = (users, name) => {
   return filename;
 };
 
-const createLink = (newList, hrefFile) => {
-  return `<a href="${hrefFile}">${newList}</a>`;
+const createLink = (value, hrefFile) => {
+  return `<a href="${hrefFile}">${value}</a>`;
+};
+
+const createDeleteEmoji = (id) => {
+  return `<span id="delete"><img src="/resources/delete.png" id="${id}" onclick="deleteList(event)"></span>`;
 };
 
 const createLists = todos => {
   let lists = '';
-  todos.forEach(({ title, time, id }) => {
-    const hrefFile = `list/${id}/view`;
-    const titleSpan = createTag('span', title);
-    const timeText = `( Last modified : ${time} )`;
-    const dateSpan = tagWithId('span', 'date', timeText);
+  todos.forEach(({ title, time, id, deleted }) => {
+    if (!deleted) {
+      const hrefFile = `list/${id}/view`;
+      const titleSpan = createTag('span', title);
+      const timeText = `( Last modified : ${time} )`;
+      const dateSpan = tagWithId('span', 'date', timeText);
+      const link = createLink(titleSpan + dateSpan, hrefFile);
+      const deleteDiv = createDeleteEmoji(id);
+      const newList = tagWithClassAndId('li', 'list', id, link + deleteDiv);
 
-    const newList = tagWithClassAndId('li', 'list', id, titleSpan + dateSpan);
-    lists += createLink(newList, hrefFile);
+      lists += newList;
+    }
   });
   const ulTag = createTag('ul', lists);
   return ulTag;

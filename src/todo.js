@@ -8,6 +8,7 @@ const { validateUser } = require('./handlers/loginHandler.js');
 const { homePageRouter } = require('./handlers/serveHomePage.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
+const { deleteListHandler } = require('./handlers/deleteListHandler.js');
 const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
 const { deleteItemHandler } = require('./handlers/deleteItemHandler.js');
@@ -35,6 +36,7 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   app.post('/add-list', addListHandler);
 
   app.get('/list/:listId/view', viewPageRouter(users, viewPage));
+  app.post('/list/:listId/delete', deleteListHandler);
 
   app.post('/add-item', addItemHandler);
 

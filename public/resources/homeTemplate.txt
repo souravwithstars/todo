@@ -4,6 +4,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/home-page.css">
     <script src="/scripts/addList.js"></script>
+    <script src="/scripts/deleteList.js"></script>
   </head>
 
   <body>
