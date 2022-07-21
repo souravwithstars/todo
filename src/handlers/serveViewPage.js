@@ -14,11 +14,12 @@ const createTag = (tag, value) => {
 };
 
 const createCheckBox = (status, id) => {
-  return `<input type="checkbox" value="${status}" id="${id}" onclick="markItem()">`;
+  const checked = status ? 'checked' : '';
+  return `<input type="checkbox" ${checked} id="${id}" onclick="markItem(event)">`;
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span><img src="../resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
+  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {
@@ -56,15 +57,15 @@ const serveViewPage = (req, res, username, template, todo) => {
 }
 
 const viewPageRouter = (users, viewPage) => (req, res) => {
-  const { id } = req.params;
+  const { listId } = req.params;
   const { username, databaseFile } = req.session;
   if (!username) {
     res.redirect(302, '/login.html');
     return;
   }
-  req.session.id = id;
+  req.session.listId = listId;
   const { todos } = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));
-  const todo = getTodo(todos, +id);
+  const todo = getTodo(todos, +listId);
   serveViewPage(req, res, username, viewPage, todo);
   return;
 };

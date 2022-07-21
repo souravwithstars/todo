@@ -24,7 +24,7 @@ const createLink = (newList, hrefFile) => {
 const createLists = todos => {
   let lists = '';
   todos.forEach(({ title, time, id }) => {
-    const hrefFile = 'view/' + id;
+    const hrefFile = `list/${id}/view`;
     const titleSpan = createTag('span', title);
     const timeText = `( Last modified : ${time} )`;
     const dateSpan = tagWithId('span', 'date', timeText);

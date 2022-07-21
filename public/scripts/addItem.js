@@ -27,7 +27,7 @@ const createCheckBox = (id) => {
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span><img src="../resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
+  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem()"></span>`;
 };
 
 const createList = (item, id) => {
@@ -51,7 +51,7 @@ const showItem = (item, id) => {
   return;
 };
 
-const sendRequest = xhrRequest => {
+const sendAddRequest = xhrRequest => {
   const { method, pathname, body } = xhrRequest;
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
@@ -72,7 +72,7 @@ const addItem = () => {
   const formData = new FormData(form);
   const parsedForm = new URLSearchParams(formData).toString();
   xhrRequest.body = parsedForm;
-  sendRequest(xhrRequest);
+  sendAddRequest(xhrRequest);
   form.reset();
   return;
 }

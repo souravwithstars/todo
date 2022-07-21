@@ -66,7 +66,7 @@ describe('homePageRouter', () => {
 describe('viewPageRouter', () => {
   it('Should response with view-page html with status 200', done => {
     request(app)
-      .get('/view/1')
+      .get('/list/1/view')
       .set('Content-type', 'text/html')
       .expect('Content-type', /plain/)
       .expect(302)
