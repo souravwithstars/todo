@@ -2,7 +2,7 @@ const request = require('supertest');
 const { todo } = require('../src/todo.js');
 
 const config = {
-  dir: 'test/testDatabase/',
+  dir: 'test/database/',
   path: 'public',
   userDetails: 'userDetails.json',
   homeTemplate: '/resources/homeTemplate.txt',

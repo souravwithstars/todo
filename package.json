@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "setup": "bash setup.sh"
   },
   "repository": {
     "type": "git",
