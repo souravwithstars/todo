@@ -3,9 +3,10 @@ const fs = require('fs');
 const createList = (title, id) => {
   const items = [];
   const time = new Date().toLocaleString();
+  const date = time.split(',')[0];
   const nextItemId = 1;
   const deleted = false;
-  return { title, id, items, nextItemId, time, deleted };
+  return { title, id, items, nextItemId, date, deleted };
 };
 
 const addListHandler = (req, res) => {

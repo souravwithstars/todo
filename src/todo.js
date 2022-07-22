@@ -26,20 +26,19 @@ const todo = ({ dir, path, userDetails, homeTemplate, viewTemplate }) => {
   const listRouter = express.Router();
   const itemRouter = express.Router();
 
-  app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(logRequest('tiny'));
   app.use(cookieSession({ name: 'session', keys }));
 
   app.post('/register-user', registerUser(users, dir, filename));
-  app.post('/logged-user', validateUser(users));
+  app.post('/logged-user', validateUser(users, dir));
   app.get('/logout', logoutHandler);
 
-  app.get('/home-page', homePageRouter(users, dir, homePage));
+  app.get('/home-page', homePageRouter(homePage));
   app.post('/add-list', addListHandler);
 
   app.use('/list', listRouter);
-  listRouter.get('/:listId/view', viewPageRouter(users, viewPage));
+  listRouter.get('/:listId/view', viewPageRouter(viewPage));
   listRouter.post('/:listId/delete', deleteListHandler);
 
   app.post('/add-item', addItemHandler);

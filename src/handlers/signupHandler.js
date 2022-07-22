@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const createFileName = (username, ext) => {
   const filename = username.split(' ').join('').toLowerCase();
-  return filename + '.json';
+  return filename + ext;
 };
 
 const createFile = ({ username, password, filename }, dir) => {

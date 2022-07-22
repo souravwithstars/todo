@@ -12,11 +12,6 @@ const createTag = (tag, value) => {
   return `<${tag}>${value}</${tag}>`;
 };
 
-const getFilename = (users, name) => {
-  const { filename } = users.find(({ username }) => username === name);
-  return filename;
-};
-
 const createLink = (value, hrefFile) => {
   return `<a href="${hrefFile}">${value}</a>`;
 };
@@ -55,15 +50,13 @@ const serveHomePage = (req, res, username, template, todos) => {
   return true;
 };
 
-const homePageRouter = (users, dir, template) => (req, res) => {
-  const { username } = req.session;
+const homePageRouter = template => (req, res) => {
+  const { username, databaseFile } = req.session;
   if (!username) {
     res.redirect(302, '/login.html');
     return;
   }
-  const databaseFile = getFilename(users, username);
-  req.session.databaseFile = dir + databaseFile;
-  const { todos } = JSON.parse(fs.readFileSync(dir + databaseFile, 'utf-8'));
+  const { todos } = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));
   serveHomePage(req, res, username, template, todos);
   return;
 };

@@ -56,7 +56,7 @@ const serveViewPage = (req, res, username, template, todo) => {
   return true;
 }
 
-const viewPageRouter = (users, viewPage) => (req, res) => {
+const viewPageRouter = viewPage => (req, res) => {
   const { listId } = req.params;
   const { username, databaseFile } = req.session;
   if (!username) {
