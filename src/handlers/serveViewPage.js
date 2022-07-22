@@ -19,7 +19,7 @@ const createCheckBox = (status, id) => {
 };
 
 const createDeleteEmoji = id => {
-  return `<span id="delete"><i class="material-icons" id="${id}">delete</i><span>`;
+  return `<span id="delete"><i class="material-icons" id="${id}" onclick="deleteItem(event)">delete_forever</i><span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {

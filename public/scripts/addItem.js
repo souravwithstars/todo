@@ -2,9 +2,9 @@ const openPopup = () => {
   const popup = document.getElementById('popup');
   popup.style.visibility = 'visible';
   const main = document.querySelector('main');
-  main.style.visibility = 'blur(2px)';
+  main.style.filter = 'blur(2px)';
   const footer = document.querySelector('footer');
-  footer.style.visibility = 'blur(2px)';
+  footer.style.filter = 'blur(2px)';
   return;
 };
 
@@ -12,9 +12,9 @@ const closePopup = () => {
   const popup = document.getElementById('popup');
   popup.style.visibility = 'hidden';
   const main = document.querySelector('main');
-  main.style.visibility = 'none';
+  main.style.filter = 'none';
   const footer = document.querySelector('footer');
-  footer.style.visibility = 'none';
+  footer.style.filter = 'none';
   return;
 };
 
@@ -27,7 +27,7 @@ const createCheckBox = (id) => {
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span id="delete"><i class="material-icons" id="${id}">delete</i><span>`;
+  return `<span id="delete"><i class="material-icons" id="${id}" onclick= "deleteItem(event)">delete_forever</i><span>`;
 };
 
 const createList = (item, id) => {
@@ -68,7 +68,7 @@ const sendAddRequest = xhrRequest => {
 
 const addItem = () => {
   const xhrRequest = { method: 'post', pathname: '/add-item' };
-  const form = document.getElementById('new-item');
+  const form = document.getElementById('add-item');
   const formData = new FormData(form);
   const parsedForm = new URLSearchParams(formData).toString();
   xhrRequest.body = parsedForm;

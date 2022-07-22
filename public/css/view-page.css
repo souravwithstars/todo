@@ -54,18 +54,17 @@ header {
   box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-#date {
-  font-size: 20px;
-}
-
-a {
-  text-decoration: none;
+#item {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 90%;
-  color: rgba(0, 0, 0, 0.7);
+  column-gap: 10px;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
 }
 
 #delete {
@@ -99,7 +98,11 @@ footer {
   cursor: pointer;
 }
 
-#log-out {
+#create i:hover {
+  transform: scale(1.1);
+}
+
+#back {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -124,20 +127,21 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
   visibility: hidden;
 }
 
-#new-list {
+#add-item {
   height: 100%;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;
 }
 
-#title {
-  padding: 10px 20px;
+#name {
   width: 100%;
   font-size: 24px;
+  padding: 10px 20px;
 }
 
 #add {

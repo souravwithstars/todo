@@ -2,6 +2,7 @@
 
   <head>
     <title>View</title>
+    <link rel="stylesheet" href="/css/view-page.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="/scripts/addItem.js"></script>
     <script src="/scripts/markItem.js"></script>
@@ -25,25 +26,17 @@
       </div>
     </main>
     <footer>
-      <div id="add">
-        <section id="back">
-          <form action="/home-page" method="get"><input type="submit" value="Back"></form>
-        </section>
-        <section id="edit">
-          <div>
-            <span><img src="/resources/add.png" onclick="openPopup()"></span>
-            <span><i class="material-icons" onclick="openPopup()">add_box</i></span>
-            <span>Add new item</span>
-          </div>
-          <div>
-            <span>Delete this List</span>
-          </div>
-        </section>
+      <div id="back">
+        <form action="/home-page" method="get"><input type="submit" value="Back" id="button"></form>
+      </div>
+      <div id="create">
+        <span><i class="material-icons" onclick="openPopup()">add_box</i></span>
+        <span>Add new item</span>
       </div>
     </footer>
     <div id="popup">
-      <form id="new-item">
-        <div>
+      <form id="add-item">
+        <div id="new-item">
           <input type="text" name="name" placeholder="new item" id="name">
         </div>
         <div>
