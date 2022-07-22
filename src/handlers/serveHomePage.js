@@ -16,8 +16,8 @@ const createLink = (value, hrefFile) => {
   return `<a href="${hrefFile}">${value}</a>`;
 };
 
-const createDeleteEmoji = (id) => {
-  return `<span id="delete"><img src="/resources/delete.png" id="${id}" onclick="deleteList(event)"></span>`;
+const createDeleteEmoji = id => {
+  return `<span id="delete"><i class="material-icons" id="${id}">delete</i><span>`;
 };
 
 const createLists = todos => {

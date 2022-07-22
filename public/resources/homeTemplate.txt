@@ -3,6 +3,7 @@
   <head>
     <title>Home</title>
     <link rel="stylesheet" href="/css/home-page.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="/scripts/addList.js"></script>
     <script src="/scripts/deleteList.js"></script>
   </head>
@@ -11,11 +12,11 @@
     <main id="page-container">
       <header>
         <div id="heading">
-          <span><img src="/resources/overview.png"></span>
+          <span><i class="material-icons">receipt_long</i></span>
           <span>My To-Do Lists :</span>
         </div>
         <div id="profile">
-          <span><img src="/resources/small-user.png"></span>
+          <span><i class="material-icons">account_circle</i></span>
           <span>__USERNAME__</span>
         </div>
       </header>
@@ -26,7 +27,7 @@
     <footer>
       <div id="create">
         <span>Create a New List - </span>
-        <span><img src="/resources/create.png" onclick="openPopup()"></span>
+        <span><i class="material-icons" onclick="openPopup()">keyboard_double_arrow_right</i></span>
       </div>
       <div id="log-out">
         <form action="/logout" method="get">

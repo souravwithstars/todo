@@ -18,8 +18,8 @@ const createCheckBox = (status, id) => {
   return `<input type="checkbox" ${checked} id="${id}" onclick="markItem(event)">`;
 };
 
-const createDeleteEmoji = (id) => {
-  return `<span><img src="/resources/delete.png" id="${id}" onclick="deleteItem(event)"></span>`;
+const createDeleteEmoji = id => {
+  return `<span id="delete"><i class="material-icons" id="${id}">delete</i><span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {

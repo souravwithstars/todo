@@ -2,6 +2,7 @@
 
   <head>
     <title>View</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="/scripts/addItem.js"></script>
     <script src="/scripts/markItem.js"></script>
     <script src="/scripts/deleteItem.js"></script>
@@ -11,11 +12,11 @@
     <main id="page-container">
       <header>
         <div id="heading">
-          <span><img src="/resources/overview.png"></span>
+          <span><i class="material-icons">receipt_long</i></span>
           <span id="title">__TITLE__ :</span>
         </div>
         <div id="profile">
-          <span><img src="/resources/small-user.png"></span>
+          <span><i class="material-icons">account_circle</i></span>
           <span>__USERNAME__</span>
         </div>
       </header>
@@ -25,10 +26,13 @@
     </main>
     <footer>
       <div id="add">
-        <section id="back"><span>Back</span></section>
+        <section id="back">
+          <form action="/home-page" method="get"><input type="submit" value="Back"></form>
+        </section>
         <section id="edit">
           <div>
             <span><img src="/resources/add.png" onclick="openPopup()"></span>
+            <span><i class="material-icons" onclick="openPopup()">add_box</i></span>
             <span>Add new item</span>
           </div>
           <div>

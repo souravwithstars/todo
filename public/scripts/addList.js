@@ -34,14 +34,14 @@ const createLink = (value, hrefFile) => {
   return `<a href="${hrefFile}">${value}</a>`;
 };
 
-const createDeleteEmoji = (id) => {
-  return `<span id="delete"><img src="/resources/delete.png" id="${id}" onclick="deleteList(event)"></span>`;
+const createDeleteEmoji = id => {
+  return `<span id="delete"><i class="material-icons" id="${id}">delete</i><span>`;
 };
 
-const createList = (title, id, time) => {
+const createList = (title, id, date) => {
   const hrefFile = `list/${id}/view`;
   const titleSpan = createTag('span', title);
-  const timeText = `( Last modified : ${time} )`;
+  const timeText = `( Last modified : ${date} )`;
   const dateSpan = tagWithId('span', 'date', timeText);
   const link = createLink(titleSpan + dateSpan, hrefFile);
   const deleteDiv = createDeleteEmoji(id);
@@ -53,9 +53,9 @@ const createList = (title, id, time) => {
   return list;
 };
 
-const showItem = (title, id, time) => {
+const showItem = (title, id, date) => {
   const ul = document.querySelector('ul');
-  const list = createList(title, id, time);
+  const list = createList(title, id, date);
 
   ul.prepend(list);
   return;
@@ -65,8 +65,8 @@ const sendAddRequest = xhrRequest => {
   const { method, pathname, body } = xhrRequest;
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
-    const { title, id, time } = JSON.parse(xhr.response);
-    showItem(title, id, time);
+    const { title, id, date } = JSON.parse(xhr.response);
+    showItem(title, id, date);
     return;
   };
   xhr.open(method, pathname);
