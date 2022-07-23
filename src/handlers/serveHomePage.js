@@ -53,7 +53,7 @@ const serveHomePage = (req, res, username, template, todos) => {
 const homePageRouter = template => (req, res) => {
   const { username, databaseFile } = req.session;
   if (!username) {
-    res.redirect(302, '/login.html');
+    res.redirect(302, '/');
     return;
   }
   const { todos } = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));

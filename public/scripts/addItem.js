@@ -22,8 +22,12 @@ const createTag = (tag, value) => {
   return `<${tag}>${value}</${tag}>`;
 };
 
-const createCheckBox = (id) => {
-  return `<input type="checkbox" value="false" id="${id}" onclick="markItem(event)">`;
+const tagWithClassAndId = (tag, classname, id, value) => {
+  return `<${tag} class="${classname}" id="${id}">${value}</${tag}>`;
+};
+
+const createCheckBox = (id, classname) => {
+  return `<input type="checkbox" value="false" class="${classname}" id="${id}" onclick="markItem(event)">`;
 };
 
 const createDeleteEmoji = (id) => {
@@ -31,11 +35,12 @@ const createDeleteEmoji = (id) => {
 };
 
 const createList = (item, id) => {
-  const checkBox = createCheckBox(id);
+  const checkBox = createCheckBox(id, 'checkBox');
   const titleSpan = createTag('span', item);
+  const itemClass = tagWithClassAndId('div', '', 'item', checkBox + titleSpan);
   const deleteSpan = createDeleteEmoji(id);
 
-  const innerText = checkBox + titleSpan + deleteSpan;
+  const innerText = itemClass + deleteSpan;
   const list = document.createElement('li');
   list.className = 'list';
   list.id = id;

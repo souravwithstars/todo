@@ -55,7 +55,6 @@ input {
 
 #error {
   padding-bottom: 5px;
-  visibility: visible;
   color: #FF0000;
   text-align: center;
 }
@@ -70,4 +69,8 @@ input {
   width: 300px;
   background-color: #18978F;
   color: white;
+}
+
+a {
+  color: black;
 }

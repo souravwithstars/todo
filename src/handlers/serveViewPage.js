@@ -13,9 +13,9 @@ const createTag = (tag, value) => {
   return `<${tag}>${value}</${tag}>`;
 };
 
-const createCheckBox = (status, id) => {
+const createCheckBox = (status, id, classname) => {
   const checked = status ? 'checked' : '';
-  return `<input type="checkbox" ${checked} id="${id}" onclick="markItem(event)">`;
+  return `<input type="checkbox" ${checked} class="${classname}" id="${id}" onclick="markItem(event)">`;
 };
 
 const createDeleteEmoji = id => {
@@ -33,11 +33,12 @@ const createLists = items => {
   let lists = '';
   items.forEach(({ item, id, done, deleted }) => {
     if (!deleted) {
-      const checkBox = createCheckBox(done, id);
+      const checkBox = createCheckBox(done, id, 'checkbox');
       const titleSpan = createTag('span', item);
+      const itemClass = tagWithClassAndId('div', '', 'item', checkBox + titleSpan);
       const deleteSpan = createDeleteEmoji(id);
 
-      const listInner = checkBox + titleSpan + deleteSpan;
+      const listInner = itemClass + deleteSpan;
       lists += tagWithClassAndId('li', 'list', id, listInner);
     }
   });

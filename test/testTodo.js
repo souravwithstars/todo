@@ -5,9 +5,12 @@ const { todo } = require('../src/todo.js');
 const config = {
   dir: 'test/database/',
   path: 'public',
+  env: 'testing',
   userDetails: 'userDetails.json',
-  homeTemplate: '/resources/homeTemplate.txt',
-  viewTemplate: '/resources/viewTemplate.txt'
+  signUpPage: 'templates/signup.txt',
+  loginPage: 'templates/login.txt',
+  homeTemplate: 'templates/homeTemplate.txt',
+  viewTemplate: 'templates/viewTemplate.txt'
 };
 const app = todo(config);
 

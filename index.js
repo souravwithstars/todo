@@ -9,9 +9,12 @@ const PORT = 5678;
 const config = {
   dir: 'src/database/',
   path: 'public',
+  env: 'production',
   userDetails: 'userDetails.json',
-  homeTemplate: '/resources/homeTemplate.txt',
-  viewTemplate: '/resources/viewTemplate.txt'
+  signUpPage: 'templates/signup.txt',
+  loginPage: 'templates/login.txt',
+  homeTemplate: 'templates/homeTemplate.txt',
+  viewTemplate: 'templates/viewTemplate.txt'
 };
 
 startServer(PORT, config);

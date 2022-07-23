@@ -2,29 +2,31 @@
 
   <head>
     <title>Sign-Up</title>
-    <link rel="stylesheet" href="css/authentication.css">
+    <link rel="stylesheet" href="/css/authentication.css">
+    <script src="scripts/serveError.js"></script>
   </head>
 
   <body>
     <main id="page-container">
-      <figure id="emoji-container"><img src="./resources/big-user.png"></figure>
+      <figure id="emoji-container"><img src="/resources/big-user.png"></figure>
       <form action="/register-user" method="post">
         <section id="user-input">
           <div id="username-container">
-            <span><img src="./resources/username.png"></span>
+            <span><img src="/resources/username.png"></span>
             <span><input type="text" name="username" id="username" placeholder="Username"></span>
           </div>
           <div id="password-container">
-            <span><img src="./resources/password.png"></span>
+            <span><img src="/resources/password.png"></span>
             <span><input type="password" name="password" id="password" placeholder="Password"></span>
           </div>
         </section>
         <section id="clickable-options">
+          <p id="error"></p>
           <div id="signup">
             <input type="submit" value="SIGN-UP" id="button">
           </div>
           <div>
-            <p>Already have an account? <a href="./login.html">Log-In</a></p>
+            <p>Already have an account? <a href="/">Log-In</a></p>
           </div>
         </section>
       </form>
