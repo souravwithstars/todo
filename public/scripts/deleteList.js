@@ -2,7 +2,7 @@ const deleteListFromPage = id => {
   const li = document.getElementById(id);
   li.remove();
   return;
-}
+};
 
 const sendDeleteRequest = xhrRequest => {
   const { method, pathname } = xhrRequest;

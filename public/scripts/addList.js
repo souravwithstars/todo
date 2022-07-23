@@ -1,20 +1,30 @@
 const openPopup = () => {
-  const popup = document.getElementById('popup');
-  popup.style.visibility = 'visible';
   const main = document.querySelector('main');
-  main.style.filter = 'blur(2px)';
+  main.style.filter = 'blur(0.5px)';
   const footer = document.querySelector('footer');
-  footer.style.filter = 'blur(2px)';
+  footer.style.filter = 'blur(0.5px)';
   return;
 };
 
 const closePopup = () => {
-  const popup = document.getElementById('popup');
-  popup.style.visibility = 'hidden';
   const main = document.querySelector('main');
   main.style.filter = 'none';
   const footer = document.querySelector('footer');
   footer.style.filter = 'none';
+  return;
+};
+
+const openAddPopup = () => {
+  const popup = document.getElementById('add-popup');
+  popup.style.visibility = 'visible';
+  openPopup();
+  return;
+};
+
+const closeAddPopup = () => {
+  const popup = document.getElementById('add-popup');
+  popup.style.visibility = 'hidden';
+  closePopup();
   return;
 };
 
@@ -26,30 +36,32 @@ const tagWithClassAndId = (tag, classname, id, value) => {
   return `<${tag} class="${classname}" id="${id}">${value}</${tag}>`;
 };
 
-const createTag = (tag, value) => {
-  return `<${tag}>${value}</${tag}>`;
+const createTagWithClass = (tag, value, classname) => {
+  return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
 const createLink = (value, hrefFile) => {
   return `<a href="${hrefFile}">${value}</a>`;
 };
 
-const createDeleteEmoji = id => {
-  return `<span id="delete"><i class="material-icons" id="${id}" onclick="deleteList(event)">delete_forever</i><span>`;
+const createEmoji = (classname, id, emojiName, onclick) => {
+  return `<span class="${classname}"><i class="material-icons" id="${id}" onclick="${onclick}">${emojiName}</i></span>`;
 };
 
 const createList = (title, id, date) => {
   const hrefFile = `list/${id}/view`;
-  const titleSpan = createTag('span', title);
-  const timeText = `( Last modified : ${date} )`;
-  const dateSpan = tagWithId('span', 'date', timeText);
+  const titleSpan = createTagWithClass('span', title, 'list-title');
+  const dateText = `( Last modified : ${date} )`;
+  const dateSpan = tagWithId('span', 'date', dateText);
   const link = createLink(titleSpan + dateSpan, hrefFile);
-  const deleteDiv = createDeleteEmoji(id);
+
+  const editSpan = createEmoji('edit', id, 'edit', 'openEditPopup(event)');
+  const deleteSpan = createEmoji('delete', id, 'delete_forever', 'deleteList(event)');
   const list = document.createElement('li');
 
   list.className = 'list';
   list.id = id;
-  list.innerHTML = link + deleteDiv;
+  list.innerHTML = link + editSpan + deleteSpan;
   return list;
 };
 
@@ -72,11 +84,12 @@ const sendAddRequest = xhrRequest => {
   xhr.open(method, pathname);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send(body);
-  closePopup(body);
+  closeAddPopup();
   return;
 };
 
-const addList = () => {
+const addList = event => {
+  event.preventDefault();
   const xhrRequest = { method: 'post', pathname: '/add-list' };
   const form = document.getElementById('new-list');
   const formData = new FormData(form);

@@ -9,6 +9,7 @@ const { logoutHandler } = require('./handlers/logoutHandler.js');
 const { homePageRouter } = require('./handlers/serveHomePage.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
+const { editListHandler } = require('./handlers/editListHandler.js');
 const { deleteListHandler } = require('./handlers/deleteListHandler.js');
 const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
@@ -33,6 +34,7 @@ const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate
   app.use(cookieSession({ name: 'session', keys }));
 
   app.get('/', serveLoginPage(loginPage));
+  app.get('/login', serveLoginPage(loginPage));
   app.get('/signup', serveSignUpPage(signUpPage));
 
   app.post('/register-user', registerUser(users, dir, filename));
@@ -44,6 +46,7 @@ const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate
 
   app.use('/list', listRouter);
   listRouter.get('/:listId/view', viewPageRouter(viewPage));
+  listRouter.post('/:listId/edit', editListHandler);
   listRouter.post('/:listId/delete', deleteListHandler);
 
   app.post('/add-item', addItemHandler);

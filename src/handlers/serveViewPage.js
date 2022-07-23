@@ -19,7 +19,7 @@ const createCheckBox = (status, id, classname) => {
 };
 
 const createDeleteEmoji = id => {
-  return `<span id="delete"><i class="material-icons" id="${id}" onclick="deleteItem(event)">delete_forever</i><span>`;
+  return `<span id="delete"><i class="material-icons" id="${id}" onclick="deleteItem(event)">delete_forever</i></span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {
@@ -61,7 +61,7 @@ const viewPageRouter = viewPage => (req, res) => {
   const { listId } = req.params;
   const { username, databaseFile } = req.session;
   if (!username) {
-    res.redirect(302, '/login.html');
+    res.redirect(302, '/');
     return;
   }
   req.session.listId = listId;

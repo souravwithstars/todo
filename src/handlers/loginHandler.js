@@ -1,7 +1,13 @@
 const fs = require('fs');
 
 const serveLoginPage = loginPage => (req, res) => {
+  const { username } = req.session;
+  if (username) {
+    res.redirect(302, '/home-page');
+    return true;
+  }
   const content = fs.readFileSync(loginPage, 'utf-8');
+  res.set('Content-type', 'text/html');
   res.end(content);
   return true;
 };
@@ -25,13 +31,13 @@ const validateUser = (users, dir) => (req, res) => {
   const { username, password } = req.body;
   if (emptyField(username, password)) {
     const message = 'Please Provide Both Username and Password!!!';
-    res.cookie('error', message, { maxAge: 5000 });
+    res.cookie('error', message, { maxAge: 1000 });
     res.redirect(302, '/');
     return;
   }
   if (!validCredentials(username, password, users)) {
     const message = 'Invalid username and password!!!';
-    res.cookie('error', message, { maxAge: 5000 });
+    res.cookie('error', message, { maxAge: 1000 });
     res.redirect(302, '/');
     return;
   }

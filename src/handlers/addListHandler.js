@@ -1,9 +1,20 @@
 const fs = require('fs');
 
+const createDate = () => {
+  const time = new Date();
+  const date = time.getDate();
+  let month = time.getMonth() + 1;
+  if (month > 12) {
+    month = month - 12;
+  }
+  month = ('' + month).padStart(2, 0);
+  const year = time.getFullYear();
+  return `${date}/${month}/${year}`;
+};
+
 const createList = (title, id) => {
   const items = [];
-  const time = new Date().toLocaleString();
-  const date = time.split(',')[0];
+  const date = createDate();
   const nextItemId = 1;
   const deleted = false;
   return { title, id, items, nextItemId, date, deleted };
@@ -22,4 +33,4 @@ const addListHandler = (req, res) => {
   return;
 };
 
-module.exports = { addListHandler };
+module.exports = { createDate, addListHandler };

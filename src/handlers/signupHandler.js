@@ -1,7 +1,13 @@
 const fs = require('fs');
 
 const serveSignUpPage = signUpPage => (req, res) => {
+  const { username } = req.session;
+  if (username) {
+    res.redirect(302, '/home-page')
+    return;
+  }
   const content = fs.readFileSync(signUpPage, 'utf-8');
+  res.set('Content-type', 'text/html');
   res.end(content);
   return true;
 };
@@ -28,19 +34,19 @@ const registerUser = (users, dir, database) => (req, res) => {
   const { username, password } = req.body;
   if (invalidCredentials(username, password)) {
     const message = 'Please Provide Both Username and Password!!!';
-    res.cookie('error', message, { maxAge: 5000 });
+    res.cookie('error', message, { maxAge: 1000 });
     res.redirect(302, '/signup');
     return;
   }
   if (usernameExists(users, username)) {
     const message = 'Please Try with Another Username!!!';
-    res.cookie('error', message, { maxAge: 5000 });
+    res.cookie('error', message, { maxAge: 1000 });
     res.redirect(302, '/signup');
     return;
   }
   if (usernameWithSpace(username)) {
     const message = 'Username cannot consist of spaces!!!';
-    res.cookie('error', message, { maxAge: 5000 });
+    res.cookie('error', message, { maxAge: 1000 });
     res.redirect(302, '/signup');
     return;
   }

@@ -4,6 +4,7 @@
 }
 
 body {
+  font-family: sans-serif;
   background-image: linear-gradient(to bottom right, #18978F, #A0D995)
 }
 
@@ -50,7 +51,6 @@ form {
 
 input {
   font-size: 26px;
-  font-family: serif;
 }
 
 #error {

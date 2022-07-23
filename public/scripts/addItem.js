@@ -2,9 +2,9 @@ const openPopup = () => {
   const popup = document.getElementById('popup');
   popup.style.visibility = 'visible';
   const main = document.querySelector('main');
-  main.style.filter = 'blur(2px)';
+  main.style.filter = 'blur(0.5px)';
   const footer = document.querySelector('footer');
-  footer.style.filter = 'blur(2px)';
+  footer.style.filter = 'blur(0.5px)';
   return;
 };
 
@@ -31,7 +31,7 @@ const createCheckBox = (id, classname) => {
 };
 
 const createDeleteEmoji = (id) => {
-  return `<span id="delete"><i class="material-icons" id="${id}" onclick= "deleteItem(event)">delete_forever</i><span>`;
+  return `<span id="delete"><i class="material-icons" id="${id}" onclick= "deleteItem(event)">delete_forever</i></span>`;
 };
 
 const createList = (item, id) => {
@@ -67,7 +67,7 @@ const sendAddRequest = xhrRequest => {
   xhr.open(method, pathname);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send(body);
-  closePopup(body);
+  closePopup();
   return;
 };
 
