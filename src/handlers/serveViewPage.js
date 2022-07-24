@@ -9,8 +9,8 @@ const tagWithClassAndId = (tag, classname, id, value) => {
   return `<${tag} class="${classname}" id="${id}">${value}</${tag}>`;
 };
 
-const createTag = (tag, value) => {
-  return `<${tag}>${value}</${tag}>`;
+const createTagWithClass = (tag, value, classname) => {
+  return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
 const createCheckBox = (status, id, classname) => {
@@ -18,8 +18,8 @@ const createCheckBox = (status, id, classname) => {
   return `<input type="checkbox" ${checked} class="${classname}" id="${id}" onclick="markItem(event)">`;
 };
 
-const createDeleteEmoji = id => {
-  return `<span id="delete"><i class="material-icons" id="${id}" onclick="deleteItem(event)">delete_forever</i></span>`;
+const createEmoji = (classname, id, emojiName, onclick) => {
+  return `<span class="${classname}"><i class="material-icons" id="${id}" onclick="${onclick}">${emojiName}</i></span>`;
 };
 
 const replaceTemplates = (template, username, title, listsHtml) => {
@@ -34,15 +34,16 @@ const createLists = items => {
   items.forEach(({ item, id, done, deleted }) => {
     if (!deleted) {
       const checkBox = createCheckBox(done, id, 'checkbox');
-      const titleSpan = createTag('span', item);
+      const titleSpan = createTagWithClass('span', item, 'item-title');
       const itemClass = tagWithClassAndId('div', '', 'item', checkBox + titleSpan);
-      const deleteSpan = createDeleteEmoji(id);
+      const editSpan = createEmoji('edit', id, 'edit_note', 'openEditPopup(event)');
+      const deleteSpan = createEmoji('delete', id, 'delete_forever', 'deleteItem(event)');
 
-      const listInner = itemClass + deleteSpan;
+      const listInner = itemClass + editSpan + deleteSpan;
       lists += tagWithClassAndId('li', 'list', id, listInner);
     }
   });
-  const ulTag = createTag('ul', lists);
+  const ulTag = createTagWithClass('ul', lists, '');
   return ulTag;
 };
 

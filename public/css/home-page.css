@@ -23,7 +23,7 @@ header {
 
 #heading,
 #profile {
-  font-size: 32px;
+  font-size: 30px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -32,13 +32,13 @@ header {
 }
 
 .material-icons {
-  font-size: 40px !important;
+  font-size: 36px !important;
 }
 
 #lists-container {
   height: 600px;
   padding: 40px;
-  font-size: 32px;
+  font-size: 30px;
   overflow: auto;
 }
 

@@ -39,7 +39,7 @@
     <div id="add-popup">
       <form id="new-list" onsubmit="addList(event)">
         <div>
-          <input type="text" name="title" placeholder="title of new list" id="title">
+          <input type="text" name="title" placeholder="Title of new List" id="title">
         </div>
         <div>
           <input type="button" value="Create" id="add" onclick="addList(event)">

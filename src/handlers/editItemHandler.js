@@ -8,18 +8,19 @@ const getItem = ({ items }, itemId) => {
   return items.find(({ id }) => id === itemId);
 };
 
-const deleteItemHandler = (req, res) => {
+const editItemHandler = (req, res) => {
   const { title, itemId } = req.params;
+  const { editedItem } = req.body
   const { databaseFile } = req.session;
   const details = JSON.parse(fs.readFileSync(databaseFile, 'utf-8'));
 
   const todo = getTodo(details, title);
   const item = getItem(todo, +itemId);
-  item.deleted = true;
+  item.item = editedItem;
 
-  fs.writeFileSync(databaseFile, JSON.stringify(details), 'utf-8');
+  fs.writeFileSync(databaseFile, JSON.stringify(details, 'utf-8'));
   res.json(item);
   return;
 };
 
-module.exports = { deleteItemHandler };
+module.exports = { editItemHandler };

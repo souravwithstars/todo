@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/view-page.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="/scripts/addItem.js"></script>
+    <script src="/scripts/editItem.js"></script>
     <script src="/scripts/markItem.js"></script>
     <script src="/scripts/deleteItem.js"></script>
   </head>
@@ -30,17 +31,27 @@
         <form action="/home-page" method="get"><input type="submit" value="Back" id="button"></form>
       </div>
       <div id="create">
-        <span><i class="material-icons" onclick="openPopup()">add_box</i></span>
-        <span>Add new item</span>
+        <span><i class="material-icons" onclick="openAddPopup()">add_box</i></span>
+        <span>Add Item</span>
       </div>
     </footer>
-    <div id="popup">
-      <form id="add-item">
+    <div id="add-popup">
+      <form id="add-item" onsubmit="addItem(event)">
         <div id="new-item">
-          <input type="text" name="name" placeholder="new item" id="name">
+          <input type="text" name="name" placeholder="Title of new Item" id="name">
         </div>
         <div>
-          <input type="button" value="Add" id="add" onclick="addItem()">
+          <input type="button" value="Add" id="add" onclick="addItem(event)">
+        </div>
+      </form>
+    </div>
+    <div id="edit-popup">
+      <form id="edit-item" onsubmit="editItem(event)">
+        <div>
+          <input type="text" name="editedItem" placeholder="New Item" id="edited-item">
+        </div>
+        <div>
+          <input type="button" value="Edit" id="edit" onclick="editItem(event)">
         </div>
       </form>
     </div>

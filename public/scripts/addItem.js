@@ -1,6 +1,4 @@
 const openPopup = () => {
-  const popup = document.getElementById('popup');
-  popup.style.visibility = 'visible';
   const main = document.querySelector('main');
   main.style.filter = 'blur(0.5px)';
   const footer = document.querySelector('footer');
@@ -9,8 +7,6 @@ const openPopup = () => {
 };
 
 const closePopup = () => {
-  const popup = document.getElementById('popup');
-  popup.style.visibility = 'hidden';
   const main = document.querySelector('main');
   main.style.filter = 'none';
   const footer = document.querySelector('footer');
@@ -18,8 +14,22 @@ const closePopup = () => {
   return;
 };
 
-const createTag = (tag, value) => {
-  return `<${tag}>${value}</${tag}>`;
+const openAddPopup = () => {
+  const popup = document.getElementById('add-popup');
+  popup.style.visibility = 'visible';
+  openPopup();
+  return;
+};
+
+const closeAddPopup = () => {
+  const popup = document.getElementById('add-popup');
+  popup.style.visibility = 'hidden';
+  closePopup();
+  return;
+};
+
+const createTagWithClass = (tag, value, classname) => {
+  return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
 const tagWithClassAndId = (tag, classname, id, value) => {
@@ -30,17 +40,18 @@ const createCheckBox = (id, classname) => {
   return `<input type="checkbox" value="false" class="${classname}" id="${id}" onclick="markItem(event)">`;
 };
 
-const createDeleteEmoji = (id) => {
-  return `<span id="delete"><i class="material-icons" id="${id}" onclick= "deleteItem(event)">delete_forever</i></span>`;
+const createEmoji = (classname, id, emojiName, onclick) => {
+  return `<span class="${classname}"><i class="material-icons" id="${id}" onclick="${onclick}">${emojiName}</i></span>`;
 };
 
 const createList = (item, id) => {
   const checkBox = createCheckBox(id, 'checkBox');
-  const titleSpan = createTag('span', item);
+  const titleSpan = createTagWithClass('span', item, 'item-title');
   const itemClass = tagWithClassAndId('div', '', 'item', checkBox + titleSpan);
-  const deleteSpan = createDeleteEmoji(id);
+  const editSpan = createEmoji('edit', id, 'edit_note', 'openEditPopup(event');
+  const deleteSpan = createEmoji('delete', id, 'delete_forever', 'deleteItem(event)');
 
-  const innerText = itemClass + deleteSpan;
+  const innerText = itemClass + editSpan + deleteSpan;
   const list = document.createElement('li');
   list.className = 'list';
   list.id = id;
@@ -67,7 +78,7 @@ const sendAddRequest = xhrRequest => {
   xhr.open(method, pathname);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send(body);
-  closePopup();
+  closeAddPopup();
   return;
 };
 
