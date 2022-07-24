@@ -11,6 +11,7 @@ const { addListHandler } = require('./handlers/addListHandler.js');
 const { viewPageRouter } = require('./handlers/serveViewPage.js');
 const { editListHandler } = require('./handlers/editListHandler.js');
 const { deleteListHandler } = require('./handlers/deleteListHandler.js');
+const { searchListHandler } = require('./handlers/searchListHandler.js');
 const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { editItemHandler } = require('./handlers/editItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
@@ -49,6 +50,7 @@ const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate
   listRouter.get('/:listId/view', viewPageRouter(viewPage));
   listRouter.post('/:listId/edit', editListHandler);
   listRouter.post('/:listId/delete', deleteListHandler);
+  listRouter.get('/:searchText/search', searchListHandler);
 
   app.post('/add-item', addItemHandler);
 

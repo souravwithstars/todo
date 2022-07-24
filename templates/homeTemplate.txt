@@ -7,6 +7,7 @@
     <script src="/scripts/addList.js"></script>
     <script src="/scripts/editList.js"></script>
     <script src="/scripts/deleteList.js"></script>
+    <script src="/scripts/searchList.js"></script>
   </head>
 
   <body>
@@ -21,9 +22,33 @@
           <span>__USERNAME__</span>
         </div>
       </header>
-      <div id="lists-container">
-        __LISTS__
-      </div>
+      <section id="body-container">
+        <div id="search-related">
+          <div id="search-list">
+            <form id="search">
+              <input type="text" id="search-bar" placeholder="Search Todo List Here..." oninput="searchList(event)">
+            </form>
+          </div>
+          <div id="search-more">
+            <span>
+              <p>Other tags</p>
+            </span>
+            <span>
+              <select name="filter-name" id="filter-name">
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="Item">Item</option>
+                <option value="Completion">Completion</option>
+              </select>
+            </span>
+            <span>
+              <i class="material-icons" id="search-btn">search</i>
+            </span>
+          </div>
+        </div>
+        <div id="lists-container">
+          __LISTS__
+        </div>
+      </section>
     </main>
     <footer>
       <div id="create">
