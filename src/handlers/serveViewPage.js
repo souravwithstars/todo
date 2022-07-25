@@ -36,7 +36,7 @@ const createLists = items => {
       const checkBox = createCheckBox(done, id, 'checkbox');
       const titleSpan = createTagWithClass('span', item, 'item-title');
       const itemClass = tagWithClassAndId('div', '', 'item', checkBox + titleSpan);
-      const editSpan = createEmoji('edit', id, 'edit_note', 'openEditPopup(event)');
+      const editSpan = createEmoji('edit', id, 'edit', 'openEditPopup(event)');
       const deleteSpan = createEmoji('delete', id, 'delete_forever', 'deleteItem(event)');
 
       const listInner = itemClass + editSpan + deleteSpan;

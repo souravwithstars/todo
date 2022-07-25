@@ -12,6 +12,7 @@ const { viewPageRouter } = require('./handlers/serveViewPage.js');
 const { editListHandler } = require('./handlers/editListHandler.js');
 const { deleteListHandler } = require('./handlers/deleteListHandler.js');
 const { searchListHandler } = require('./handlers/searchListHandler.js');
+const { searchPageHandler } = require('./handlers/searchPageHandler.js');
 const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { editItemHandler } = require('./handlers/editItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
@@ -19,11 +20,12 @@ const { deleteItemHandler } = require('./handlers/deleteItemHandler.js');
 
 const keys = JSON.parse(fs.readFileSync('./src/secretKeys.json', 'utf-8'));
 
-const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate, viewTemplate }) => {
+const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate, viewTemplate, searchTemplate }) => {
   const filename = dir + userDetails;
   const users = JSON.parse(fs.readFileSync(filename, 'utf-8'));
   const homePage = fs.readFileSync(homeTemplate, 'utf-8');
   const viewPage = fs.readFileSync(viewTemplate, 'utf-8');
+  const searchPage = fs.readFileSync(searchTemplate, 'utf-8');
 
   const app = express();
   const listRouter = express.Router();
@@ -52,6 +54,7 @@ const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate
   listRouter.post('/:listId/delete', deleteListHandler);
   listRouter.get('/:searchText/search', searchListHandler);
 
+  app.get('/search-page', searchPageHandler(searchPage));
   app.post('/add-item', addItemHandler);
 
   app.use('/item', itemRouter);

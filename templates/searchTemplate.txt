@@ -1,0 +1,61 @@
+<html>
+
+  <head>
+    <title>View</title>
+    <link rel="stylesheet" href="/css/search-page.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+
+  <body>
+    <main id="page-container">
+      <header>
+        <div id="search-related">
+          <div id="search-item">
+            <form id="search">
+              <input type="text" id="search-bar" placeholder="Search Todo Item Here...">
+            </form>
+          </div>
+          <div id="search-more">
+            <span>
+              <p>Filters -</p>
+            </span>
+            <span>
+              <select name="filter-name" id="filter-name">
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="all">All</option>
+                <option value="done">Done</option>
+                <option value="undone">Undone</option>
+              </select>
+            </span>
+            <span>
+              <i class="material-icons" id="search-btn">search</i>
+            </span>
+          </div>
+        </div>
+        <div id="profile">
+          <span><i class="material-icons">account_circle</i></span>
+          <span>sourav</span>
+        </div>
+      </header>
+      <div id="items-container">
+        __ITEMS__
+      </div>
+    </main>
+    <footer>
+      <div id="back">
+        <form action="/home-page" method="get"><input type="submit" value="Back" id="button"></form>
+      </div>
+    </footer>
+    <div id="edit-popup">
+      <form id="edit-item">
+        <div>
+          <input type="text" name="editedItem" placeholder="New Item" id="edited-item">
+        </div>
+        <div>
+          <input type="button" value="Edit" id="edit">
+        </div>
+      </form>
+    </div>
+  </body>
+
+</html>

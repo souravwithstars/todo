@@ -30,19 +30,9 @@
             </form>
           </div>
           <div id="search-more">
-            <span>
-              <p>Other tags</p>
-            </span>
-            <span>
-              <select name="filter-name" id="filter-name">
-                <option value="" selected disabled hidden>Choose here</option>
-                <option value="Item">Item</option>
-                <option value="Completion">Completion</option>
-              </select>
-            </span>
-            <span>
-              <i class="material-icons" id="search-btn">search</i>
-            </span>
+            <a href="/search-page">
+              <p>Search by more filters...</p>
+            </a>
           </div>
         </div>
         <div id="lists-container">
