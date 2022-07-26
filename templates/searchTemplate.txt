@@ -24,15 +24,12 @@
               <p>Filters -</p>
             </span>
             <span>
-              <select name="filter-name" id="filter-name">
+              <select name="filter-name" id="filter-name" onchange="searchItem(event)">
                 <option value="" selected disabled hidden>Choose here</option>
                 <option value="all">All</option>
                 <option value="done">Done</option>
                 <option value="undone">Undone</option>
               </select>
-            </span>
-            <span>
-              <i class="material-icons" id="search-btn">search</i>
             </span>
           </div>
         </div>
