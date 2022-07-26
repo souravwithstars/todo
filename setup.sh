@@ -1,4 +1,3 @@
-rm -r src/database
 mkdir -p src/database; echo '[]' > src/database/userDetails.json
 mkdir -p test/database; echo '[]' > test/database/userDetails.json
 

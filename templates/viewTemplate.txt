@@ -46,12 +46,12 @@
       </form>
     </div>
     <div id="edit-popup">
-      <form id="edit-item" onsubmit="editItem(event)">
+      <form id="edit-item">
         <div>
           <input type="text" name="editedItem" placeholder="New Item" id="edited-item">
         </div>
         <div>
-          <input type="button" value="Edit" id="edit" onclick="editItem(event)">
+          <input type="button" value="Edit" id="edit">
         </div>
       </form>
     </div>

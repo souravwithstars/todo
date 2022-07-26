@@ -17,6 +17,10 @@ const createTagWithClass = (tag, value, classname) => {
   return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
+const tagWithClsAndManualAtt = (tag, value, classname, attName, attValue) => {
+  return `<${tag} class="${classname}" ${attName}="${attValue}">${value}</${tag}>`;
+};
+
 const createItems = items => {
   let lists = '';
   items.forEach(({ item, id, done, deleted }) => {
@@ -30,9 +34,8 @@ const createItems = items => {
       const listInner = itemClass + editSpan + deleteSpan;
       lists += tagWithClassAndId('li', 'item', id, listInner);
     }
-  })
-  const ulTag = createTagWithClass('ul', lists,);
-  return ulTag;
+  });
+  return lists;
 };
 
 const createLists = todos => {
@@ -41,7 +44,7 @@ const createLists = todos => {
     if (!deleted) {
       const titleSpan = createTagWithClass('div', `<p>${title}</p>`, 'list-title');
       const itemsHtml = createItems(items);
-      const ulTag = createTagWithClass('ul', itemsHtml, 'items');
+      const ulTag = tagWithClsAndManualAtt('ul', itemsHtml, 'items', 'list-name', title);
       const newList = createTagWithClass('li', titleSpan + ulTag, 'list');
       lists += newList;
     }

@@ -1,19 +1,3 @@
-const openPopup = () => {
-  const main = document.querySelector('main');
-  main.style.filter = 'blur(0.5px)';
-  const footer = document.querySelector('footer');
-  footer.style.filter = 'blur(0.5px)';
-  return;
-};
-
-const closePopup = () => {
-  const main = document.querySelector('main');
-  main.style.filter = 'none';
-  const footer = document.querySelector('footer');
-  footer.style.filter = 'none';
-  return;
-};
-
 const openAddPopup = () => {
   const popup = document.getElementById('add-popup');
   popup.style.visibility = 'visible';

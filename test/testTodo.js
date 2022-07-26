@@ -11,7 +11,8 @@ const config = {
   signUpPage: 'templates/signup.txt',
   loginPage: 'templates/login.txt',
   homeTemplate: 'templates/homeTemplate.txt',
-  viewTemplate: 'templates/viewTemplate.txt'
+  viewTemplate: 'templates/viewTemplate.txt',
+  searchTemplate: 'templates/searchTemplate.txt'
 };
 const app = todo(config);
 

@@ -4,6 +4,10 @@
     <title>View</title>
     <link rel="stylesheet" href="/css/search-page.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="/scripts/searchItem.js"></script>
+    <script src="/scripts/editItem.js"></script>
+    <script src="/scripts/markItem.js"></script>
+    <script src="/scripts/deleteItem.js"></script>
   </head>
 
   <body>
@@ -12,7 +16,7 @@
         <div id="search-related">
           <div id="search-item">
             <form id="search">
-              <input type="text" id="search-bar" placeholder="Search Todo Item Here...">
+              <input type="text" id="search-bar" placeholder="Search Todo Item Here..." oninput="searchItem(event)">
             </form>
           </div>
           <div id="search-more">
@@ -34,7 +38,7 @@
         </div>
         <div id="profile">
           <span><i class="material-icons">account_circle</i></span>
-          <span>sourav</span>
+          <span>__USERNAME__</span>
         </div>
       </header>
       <div id="items-container">

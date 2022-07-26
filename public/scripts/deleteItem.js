@@ -19,8 +19,10 @@ const sendDeleteRequest = xhrRequest => {
 
 const deleteItem = event => {
   const itemId = event.srcElement.id;
-  const titleElement = document.getElementById('title');
-  const title = titleElement.innerText.slice(0, -2);
+  const element = event.target;
+  const ul = element.closest('ul');
+  const title = ul.getAttribute('list-name');
+
   const xhrRequest = { method: 'post', pathname: `/item/${title}/${itemId}/delete` };
   sendDeleteRequest(xhrRequest);
   return;

@@ -13,6 +13,10 @@ const createTagWithClass = (tag, value, classname) => {
   return `<${tag} class="${classname}">${value}</${tag}>`;
 };
 
+const tagWithClsAndManualAtt = (tag, value, classname, attName, attValue) => {
+  return `<${tag} class="${classname}" ${attName}="${attValue}">${value}</${tag}>`;
+};
+
 const createCheckBox = (status, id, classname) => {
   const checked = status ? 'checked' : '';
   return `<input type="checkbox" ${checked} class="${classname}" id="${id}" onclick="markItem(event)">`;
@@ -29,7 +33,7 @@ const replaceTemplates = (template, username, title, listsHtml) => {
   return content;
 };
 
-const createLists = items => {
+const createLists = (title, items) => {
   let lists = '';
   items.forEach(({ item, id, done, deleted }) => {
     if (!deleted) {
@@ -43,13 +47,13 @@ const createLists = items => {
       lists += tagWithClassAndId('li', 'list', id, listInner);
     }
   });
-  const ulTag = createTagWithClass('ul', lists, '');
+  const ulTag = tagWithClsAndManualAtt('ul', lists, '', 'list-name', title);
   return ulTag;
 };
 
 const serveViewPage = (req, res, username, template, todo) => {
   const { title, items } = todo;
-  const listsHtml = createLists(items);
+  const listsHtml = createLists(title, items);
   const content = replaceTemplates(template, username, title, listsHtml);
 
   res.set('Content-type', 'text/html');

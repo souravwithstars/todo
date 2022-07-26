@@ -17,6 +17,7 @@ const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { editItemHandler } = require('./handlers/editItemHandler.js');
 const { markItemHandler } = require('./handlers/markItemHandler.js');
 const { deleteItemHandler } = require('./handlers/deleteItemHandler.js');
+const { searchItemHandler } = require('./handlers/searchItemHandler.js');
 
 const keys = JSON.parse(fs.readFileSync('./src/secretKeys.json', 'utf-8'));
 
@@ -61,6 +62,7 @@ const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate
   itemRouter.post('/:title/:itemId/edit', editItemHandler);
   itemRouter.post('/:title/:itemId/mark', markItemHandler);
   itemRouter.post('/:title/:itemId/delete', deleteItemHandler);
+  itemRouter.get('/:searchText/search', searchItemHandler);
 
   app.use(express.static(path));
   app.use(notFoundHandler);
