@@ -19,7 +19,8 @@ const { markItemHandler } = require('./handlers/markItemHandler.js');
 const { deleteItemHandler } = require('./handlers/deleteItemHandler.js');
 const { searchItemHandler } = require('./handlers/searchItemHandler.js');
 
-const keys = JSON.parse(fs.readFileSync('./src/secretKeys.json', 'utf-8'));
+// const keys = JSON.parse(fs.readFileSync('./src/secretKeys.json', 'utf-8'));
+const keys = JSON.parse(process.env.SECRET_KEYS);
 
 const todo = ({ dir, path, env, userDetails, signUpPage, loginPage, homeTemplate, viewTemplate, searchTemplate }) => {
   const filename = dir + userDetails;
