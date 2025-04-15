@@ -1,4 +1,4 @@
-## To-do
+# To-do
 ---
 A simple **To-do** list built using HTML, CSS and JavaScript helps multiple users maintain their To-dos.
 
@@ -14,8 +14,11 @@ A simple **To-do** list built using HTML, CSS and JavaScript helps multiple user
 
   * ***MARK*** a To-do item as being **done** or **undone**. By default, a To-do item is **undone** until it is marked **done**.
 
-  * ***SEARCH*** a To-do list by **title** or a **item** across all To-do lists or a item mark by **done** or **undone**.
+  * ***SEARCH*** a To-do list by **title** or an **item** across all To-do lists or an item mark by **done** or **undone**.
 
   * ***DELETE*** a To-do item or a To-do list also.
+
+### The Application is available in -
+    https://todo-1496.onrender.com
 
   ---
