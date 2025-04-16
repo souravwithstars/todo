@@ -2,3 +2,4 @@ node_modules
 src/database
 test/database
 src/secretKeys.json
+.env

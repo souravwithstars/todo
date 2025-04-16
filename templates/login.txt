@@ -1,36 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-  <head>
-    <title>Log-In</title>
-    <link rel="stylesheet" href="/css/authentication.css">
-    <script src="scripts/serveError.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Todo</title>
+  <link rel="stylesheet" href="/css/authentication.css" />
+  <script src="scripts/serveError.js" defer></script>
+</head>
 
-  <body>
-    <main id="page-container">
-      <figure id="emoji-container"><img src="/resources/big-user.png"></figure>
-      <form action="/logged-user" method="post">
-        <section id="user-input">
-          <div id="username-container">
-            <span><img src="/resources/username.png"></span>
-            <span><input type="text" name="username" id="username" placeholder="Username"></span>
-          </div>
-          <div id="password-container">
-            <span><img src="/resources/password.png"></span>
-            <span><input type="password" name="password" id="password" placeholder="Password"></span>
-          </div>
-        </section>
-        <section id="clickable-options">
-          <p id="error"></p>
-          <div id="login">
-            <input type="submit" value="LOGIN" id="button">
-          </div>
-          <div>
-            <p>Don't have an account? <a href="./signup">Sign-Up</a></p>
-          </div>
-        </section>
+<body>
+  <main id="page-container">
+    <section class="login-card">
+      <figure class="logo">
+        <img src="/resources/big-user.png" alt="User Avatar" />
+      </figure>
+      <h2>Welcome Back to Todo</h2>
+      <form action="/logged-user" method="post" class="login-form">
+        <div class="input-group">
+            <img src="/resources/username.png" alt="Username Icon" />
+            <input type="text" name="username" id="username" placeholder="Username" required />
+        </div>
+        <div class="input-group">
+            <img src="/resources/password.png" alt="Password Icon" />
+            <input type="password" name="password" id="password" placeholder="Password" required />
+        </div>
+        <p id="error" class="error-message"></p>
+        <button type="submit" id="button" class="login-button">Log In</button>
+        <p class="signup-link">Don't have an account? <a href="./signup">Sign Up</a></p>
       </form>
-    </main>
-  </body>
+    </section>
+  </main>
+</body>
 
 </html>
