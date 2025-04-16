@@ -1,5 +1,6 @@
 const fs = require('fs');
 const request = require('supertest');
+const assert = require('assert');
 const { todo } = require('../src/todo.js');
 const { createDate } = require('../src/handlers/addListHandler.js');
 
@@ -16,263 +17,173 @@ const config = {
 };
 const app = todo(config);
 
-describe('serveLoginPage', () => {
-  it('Should serve login page with status 200', done => {
-    request(app)
-      .get('/')
-      .expect('Content-type', /html/)
-      .expect(200)
-      .end(done)
-  });
-});
+const userDataPath = username => `test/database/${username.toLowerCase()}.json`;
 
-describe('serveSignUpPage', () => {
-  it('Should serve signup page with status 200', done => {
-    request(app)
-      .get('/signup')
-      .expect('Content-type', /html/)
-      .expect(200)
-      .end(done)
-  });
-});
+const writeUserData = (username, data = {
+  username,
+  password: '1234',
+  nextId: 1,
+  todos: []
+}) => {
+  fs.writeFileSync(userDataPath(username), JSON.stringify(data), 'utf-8');
+};
 
-describe('registerUser', () => {
+const removeUserData = username => {
+  fs.rmSync(userDataPath(username));
+};
+
+describe('Authentication & Page Serving', () => {
   before(() => {
-    const userDetails = [];
-    fs.writeFileSync('test/database/userDetails.json', JSON.stringify(userDetails), 'utf-8');
-  })
+    fs.writeFileSync('test/database/userDetails.json', JSON.stringify([]), 'utf-8');
+  });
 
   after(() => {
-    const userDetails = [];
-    fs.writeFileSync('test/database/userDetails.json', JSON.stringify(userDetails), 'utf-8');
-  })
+    fs.writeFileSync('test/database/userDetails.json', JSON.stringify([]), 'utf-8');
+  });
 
-  it('Should redirect to home-page for a new user', done => {
+  it('Should serve login page', done => {
+    request(app).get('/')
+        .expect('Content-Type', /html/)
+        .expect(200, done);
+  });
+
+  it('Should serve signup page', done => {
+    request(app).get('/signup')
+        .expect('Content-Type', /html/)
+        .expect(200, done);
+  });
+
+  it('Should register a new user and redirect to home page', done => {
     request(app)
-      .post('/register-user')
-      .send('username=Sourav&password=1234')
-      .expect('location', '/home-page')
-      .expect(302)
-      .end(done)
+        .post('/register-user')
+        .send('username=Sourav&password=1234')
+        .expect('Location', '/home-page')
+        .expect(302, done);
+  });
+
+  it('Should login and redirect to home page', done => {
+    request(app)
+        .post('/logged-user')
+        .send('username=Sourav&password=1234')
+        .expect('Location', '/home-page')
+        .expect(302, done);
   });
 });
 
-describe('validateUser', () => {
-  it('Should redirect to home-page for a successfull login', done => {
-    request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect('location', '/home-page')
-      .expect(302)
-      .end(done)
-  });
-});
-
-describe('logoutHandler', () => {
+describe('Session and Home Page Access', () => {
   let sessionCookie;
+
   before(done => {
+    writeUserData('Sourav');
     request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect(res => {
-        sessionCookie = res.header['set-cookie'];
-      })
-      .end(done)
-  })
-  before(() => {
-    const writeData = {
-      username: "Sourav",
-      password: 1234,
-      nextId: 1,
-      todos: []
-    };
-    fs.writeFileSync('test/database/sourav.json', JSON.stringify(writeData), 'utf-8');
-  })
-  after(() => {
-    fs.rmSync('test/database/sourav.json')
-  })
-  it('Should logout and remove the session', done => {
+        .post('/logged-user')
+        .send('username=Sourav&password=1234')
+        .expect(res => sessionCookie = res.header['set-cookie'])
+        .end(done);
+  });
+
+  after(() => removeUserData('Sourav'));
+
+  it('Should serve home page if logged in', done => {
     request(app)
-      .get('/logout')
-      .set('cookie', sessionCookie.join('; '))
-      .expect('location', '/')
-      .expect(302)
-      .end(done)
+        .get('/home-page')
+        .set('Cookie', sessionCookie.join('; '))
+        .expect('Content-Type', /html/)
+        .expect(200, done);
+  });
+
+  it('Should redirect to login page if not logged in', done => {
+    request(app)
+        .get('/home-page')
+        .expect('Location', '/')
+        .expect(302, done);
+  });
+
+  it('Should logout and destroy session', done => {
+    request(app)
+        .get('/logout')
+        .set('Cookie', sessionCookie.join('; '))
+        .expect('Location', '/')
+        .expect(302, done);
   });
 });
 
-describe('homePageRouter', () => {
+describe('Todo List Features', () => {
   let sessionCookie;
+
   before(done => {
+    writeUserData('Sourav');
     request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect(res => {
-        sessionCookie = res.header['set-cookie'];
-      })
-      .end(done)
-  })
-  before(() => {
-    const writeData = {
-      username: "Sourav",
-      password: 1234,
-      nextId: 1,
-      todos: []
-    };
-    fs.writeFileSync('test/database/sourav.json', JSON.stringify(writeData), 'utf-8');
-  })
-  after(() => {
-    fs.rmSync('test/database/sourav.json')
-  })
-  it('Should serve home-page if already logged-in', done => {
-    request(app)
-      .get('/home-page')
-      .set('cookie', sessionCookie.join('; '))
-      .expect('Content-type', /html/)
-      .expect(200)
-      .end(done)
+        .post('/logged-user')
+        .send('username=Sourav&password=1234')
+        .expect(res => sessionCookie = res.header['set-cookie'])
+        .end(done);
   });
 
-  it('Should redirect to login page if not logged-in', done => {
-    request(app)
-      .get('/home-page')
-      .expect('Content-type', /plain/)
-      .expect(302)
-      .end(done)
-  });
-});
+  after(() => removeUserData('Sourav'));
 
-describe('addListHandler', () => {
-  let sessionCookie;
-  before(done => {
-    request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect(res => {
-        sessionCookie = res.header['set-cookie'];
-      })
-      .end(done)
-  })
-  before(() => {
-    const writeData = {
-      username: "Sourav",
-      password: 1234,
-      nextId: 1,
-      todos: []
-    };
-    fs.writeFileSync('test/database/sourav.json', JSON.stringify(writeData), 'utf-8');
-  })
-  after(() => {
-    fs.rmSync('test/database/sourav.json')
-  })
-  it('Should response with a json of new list', done => {
+  it('Should add a new list and return JSON', done => {
     const date = createDate();
     request(app)
-      .post('/add-list')
-      .set('cookie', sessionCookie.join('; '))
-      .send('title=review')
-      .expect(`{"title":"review","id":1,"items":[],"nextItemId":1,"date":"${date}","deleted":false}`)
-      .end(done)
-  })
-});
-
-describe('viewPageRouter', () => {
-  let sessionCookie;
-  before(done => {
-    request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect(res => {
-        sessionCookie = res.header['set-cookie'];
-      })
-      .end(done)
-  })
-  before(() => {
-    const writeData = {
-      username: "Sourav",
-      password: 1234,
-      nextId: 1,
-      todos: []
-    };
-    fs.writeFileSync('test/database/sourav.json', JSON.stringify(writeData), 'utf-8');
-  })
-  before(done => {
-    request(app)
-      .post('/add-list')
-      .set('cookie', sessionCookie.join('; '))
-      .send('title=review')
-      .end(done)
-  })
-  after(() => {
-    fs.rmSync('test/database/sourav.json')
-  })
-
-  it('Should serve view-page if already logged-in', done => {
-    request(app)
-      .get('/list/1/view')
-      .set('cookie', sessionCookie.join('; '))
-      .expect('Content-type', /html/)
-      .expect(200)
-      .end(done)
+        .post('/add-list')
+        .set('Cookie', sessionCookie.join('; '))
+        .send('title=review')
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          const data = JSON.parse(res.text);
+          assert.deepStrictEqual(data, {
+            title: 'review',
+            id: 1,
+            items: [],
+            nextItemId: 1,
+            date,
+            deleted: false
+          });
+        })
+        .expect(200, done);
   });
 
-  it('Should redirect to login page if not logged-in', done => {
+  it('Should view the added list page', done => {
     request(app)
-      .get('/list/1/view')
-      .expect('location', '/')
-      .expect(302)
-      .end(done)
+        .get('/list/1/view')
+        .set('Cookie', sessionCookie.join('; '))
+        .expect('Content-Type', /html/)
+        .expect(200, done);
   });
-});
 
-describe('deleteListHandler', () => {
-  let sessionCookie;
-  before(done => {
-    request(app)
-      .post('/logged-user')
-      .send('username=Sourav&password=1234')
-      .expect(res => {
-        sessionCookie = res.header['set-cookie'];
-      })
-      .end(done)
-  })
-  before(() => {
-    const writeData = {
-      username: "Sourav",
-      password: 1234,
-      nextId: 1,
-      todos: []
-    };
-    fs.writeFileSync('test/database/sourav.json', JSON.stringify(writeData), 'utf-8');
-  })
-  before(done => {
-    request(app)
-      .post('/add-list')
-      .set('cookie', sessionCookie.join('; '))
-      .send('title=review')
-      .end(done)
-  })
-  after(() => {
-    fs.rmSync('test/database/sourav.json')
-  })
-
-  it('Should response with the selected list deleted true', done => {
+  it('Should delete the list and return updated JSON', done => {
     const date = createDate();
     request(app)
-      .post('/list/1/delete')
-      .set('cookie', sessionCookie.join('; '))
-      .expect(`{"title":"review","id":1,"items":[],"nextItemId":1,"date":"${date}","deleted":true}`)
-      .expect(200)
-      .end(done)
+        .post('/list/1/delete')
+        .set('Cookie', sessionCookie.join('; '))
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          const data = JSON.parse(res.text);
+          assert.deepStrictEqual(data, {
+            title: 'review',
+            id: 1,
+            items: [],
+            nextItemId: 1,
+            date,
+            deleted: true
+          });
+        })
+        .expect(200, done);
+  });
+
+  it('Should redirect to login if viewing without session', done => {
+    request(app)
+        .get('/list/1/view')
+        .expect('Location', '/')
+        .expect(302, done);
   });
 });
 
-describe('notFoundHandler', () => {
-  it('Should serve not found page with status 404', done => {
+describe('Not Found Handler', () => {
+  it('Should serve 404 page', done => {
     request(app)
-      .get('/not-found')
-      .expect('COntent-type', 'text/plain')
-      .expect(404)
-      .end(done)
+        .get('/not-found')
+        .expect('Content-Type', /plain/)
+        .expect(404, done);
   });
 });
